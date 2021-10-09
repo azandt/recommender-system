@@ -1,21 +1,23 @@
 var express = require('express')
-var fs = require('fs')
-var app = express()
+var app = express();
 var bodyParser = require('body-parser');
-
+var path = require('path');
 
 app.use(bodyParser())
 
-app.get('/', function (request, response) {
-  response.sendfile("./index.html");
+//Set the public folder
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 })
 
-app.post('/', function (request, response) {
+app.post('/', function (req, res) {
   console.log('POST /')
-  console.dir(request.body)
-  console.log(request.body["test"])
-  response.writeHead(200, { 'Content-Type': 'text/html' })
-  response.end('thanks')
+  console.dir(req.body)
+  console.log(req.body["test"])
+  res.writeHead(200, { 'Content-Type': 'text/html' })
+  res.end('thanks')
 })
 
 const port = 500
