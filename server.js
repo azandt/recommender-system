@@ -10,11 +10,6 @@ app.use(bodyParser());
 //Set the public folder
 app.use(express.static(__dirname + '/public'));
 
-//Set html page
-// app.get('/', function (req, res) {
-//   res.sendFile(path.join(__dirname, 'public/index.html'));
-// });
-
 //Receive ratings from user
 app.post('/', function (req, res) {
   console.log('POST /')
@@ -71,17 +66,6 @@ for (let i = 0; i < 10; i++) {
         res.render(path.join(__dirname, 'public/index.html'));
       });
 
-      data = [
-        {
-          "id": 1,
-          "name": "Jhon"
-        },
-        {
-          "id": 2,
-          "name": "Mike"
-        }
-      ];
-
       app.get('/api', function (req, res) {
         res.json(rateMovies);
       });
@@ -92,7 +76,3 @@ for (let i = 0; i < 10; i++) {
     }
   })
 }
-
-// const port = 500;
-// app.listen(port);
-// console.log(`Listening at http://localhost:${port}`);
