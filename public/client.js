@@ -16,6 +16,7 @@ function createSubmitbtn() {
     let submitForm = document.createElement("form");
     submitForm.setAttribute("method", "post")
     submitForm.setAttribute("action", "/")
+    submitForm.setAttribute("enctype", "application/json")
     submitForm.id = "submitForm";
     document.body.appendChild(submitForm);
 
@@ -41,16 +42,16 @@ function createSubmitbtn() {
     button.value = "Submit";
     parent.appendChild(button);
 
-}
+    var ratingInput = document.getElementsByClassName("ratingInput");
 
-var ratingInput = document.getElementsByClassName("ratingInput");
+    //Keep text value between 1 and 5
+    for (var i = 0; i < ratingInput.length; i++) {
+        ratingInput[i].addEventListener('change', function () {
+            console.log("awaawaaa");
+            let v = parseInt(this.value);
+            if (v < 1) this.value = 1;
+            if (v > 5) this.value = 5;
+        }, false);
+    }
 
-//Keep text value between 1 and 5
-for (var i = 0; i < ratingInput.length; i++) {
-    ratingInput[i].addEventListener('change', function () {
-        console.log("awaawaaa");
-        let v = parseInt(this.value);
-        if (v < 1) this.value = 1;
-        if (v > 5) this.value = 5;
-    }, false);
 }
