@@ -13,6 +13,7 @@ fetch('http://localhost:500/api')
 
 //Function to create rating submit button
 function createSubmitbtn() {
+    //Create form
     let submitForm = document.createElement("form");
     submitForm.setAttribute("method", "post")
     submitForm.setAttribute("action", "/")
@@ -21,37 +22,55 @@ function createSubmitbtn() {
     document.body.appendChild(submitForm);
 
     var parent = document.getElementById("submitForm");
+
+    //Create 10 inputs
     for (var i = 0; i < 10; i++) {
 
         //Create text box and label
-        submitForm.innerHTML += (rateMovies[i] + ": ");
+        let label = document.createElement("label");
+        label.name = rateMovies[i];
+        label.id = "label" + i;
+        label.for = "input" + i;
+        label.innerHTML = (rateMovies[i]);
+        parent.appendChild(label);
 
         let input = document.createElement("input");
         input.type = "number";
         input.name = "rating";
         input.value = "";
-        input.step = "0.1";
-        input.classList.add("ratingInput");
+        input.step = "1";
+        input.id = "input" + i;
         parent.appendChild(input);
-        submitForm.innerHTML += "<br><br>";
+        parent.innerHTML += "<br>";
     }
 
     //Create button
     let button = document.createElement("input");
+    button.id = "button";
     button.type = "submit";
     button.value = "Submit";
     parent.appendChild(button);
 
     var ratingInput = document.getElementsByClassName("ratingInput");
 
-    //Keep text value between 1 and 5
+    //Keep input value between 1 and 5
     for (var i = 0; i < ratingInput.length; i++) {
         ratingInput[i].addEventListener('change', function () {
-            console.log("awaawaaa");
             let v = parseInt(this.value);
             if (v < 1) this.value = 1;
             if (v > 5) this.value = 5;
         }, false);
     }
 
+    //Load CSS
+    //Create new link Element
+    var link = document.createElement('link');
+
+    //Set the attributes for link element
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = 'style.css';
+
+    // Get HTML head element to append link element to it 
+    document.getElementsByTagName('HEAD')[0].appendChild(link);
 }

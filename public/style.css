@@ -1,0 +1,27 @@
+input {
+    display: inline-block;
+    height: 1.5em;
+    width: 2%;
+    position: relative;
+}
+
+label {
+    display: inline-block;
+    width: 15%;
+    height: 20%;
+    font-size: large;
+    margin-top: 1%;
+}
+
+#label0 {
+    margin-top: 0%;
+}
+
+#submitForm {
+}
+
+#button {
+    display: inline-block;
+    width: 3%;
+    margin-top: 1%;
+}

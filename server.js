@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public'));
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '*****',
+  password: 'ArnonPWSDatabase99',
   database: 'pws'
 });
 
@@ -72,12 +72,12 @@ for (let i = 0; i < 10; i++) {
 }
 
 //Arrays
-var similarCustomers = [[]];
-var similarCustomers2 = [];
-var customerMovies = [[]];
-var customerMoviesCount = [];
-var recommendedMoviesID = [];
-var recommendedMoviesName = [];
+var similarCustomers = [[]]; //All customers who have at least 1 movie with the same rating as the user
+var similarCustomers2 = []; //All customers who have at least 2 movies with the same rating as the user
+var customerMovies = [[]]; //All movies that have been seen by a customer in similarCustomers2 and which customer that is
+var customerMoviesCount = []; //(2D array) Every movie that has been seen by a customer and the amount of times it has been seen
+var recommendedMoviesID = []; //All IDs of movies that appears the most amount of times by everyone in similarCustomers2
+var recommendedMoviesName = []; //RecommendedMoviesID but with movie names
 
 var ratingCustomerCount = 50;
 var similarCustomers2Limit = 10000;
@@ -187,7 +187,7 @@ app.post('/', function (req, res) {
         }
         //console.log("added movie ratings to customerID")
         customerMovies[value] = rowResults;
-        console.log("finished query " + value)
+        console.log("finished query " + (value+1))
         resolve(value);
       });
     });
@@ -289,13 +289,6 @@ app.post('/', function (req, res) {
         }
       }
 
-      //Divide all movie counts by 2 (due to database bug)
-      for (var i = 0; i < customerMoviesCount.length / 2; i++) {
-        if (customerMoviesCount[i][1] % 2 != 1) {
-          customerMoviesCount[i][1] /= 2;
-        }
-      }
-
       console.log("Finished customerMoviesCount array")
 
       //Find which movie appears most in similar customers
@@ -303,23 +296,24 @@ app.post('/', function (req, res) {
       for (var i = 0; i < customerMoviesCount.length / 2; i++) {
         if (customerMoviesCount[i][1] > mostOccurences) {
           mostOccurences = customerMoviesCount[i][1];
+          console.log("New most occurence, movieID " + customerMoviesCount[i][0] + " with " + mostOccurences)
         }
       }
 
       //Add most appearing movies to array
       for (var i = 0; i < customerMoviesCount.length / 2; i++) {
-        if (customerMoviesCount[i][1] = mostOccurences) {
+        if (customerMoviesCount[i][1] == mostOccurences) {
           recommendedMoviesID.push(customerMoviesCount[i][0]);
         }
       }
 
+      
       console.log("Finished recommendedMovies array");
 
     }).then(() => {
       makeRecommendedMoviesNameArray(recommendedMoviesID.length).then(() => {
         console.log("Finished movie names query");
-        console.log("id ", recommendedMoviesID[0])
-        console.log("name ",recommendedMoviesName[0]);
+        console.log("found " + recommendedMoviesID.length + " recommended movies");
         res.writeHead(200, { 'Content-Type': 'text/html' })
 
         var endMessage = "";
