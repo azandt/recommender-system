@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public'));
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'ArnonPWSDatabase99',
+  password: '*****',
   database: 'pws'
 });
 
@@ -316,11 +316,8 @@ app.post('/', function (req, res) {
         console.log("found " + recommendedMoviesID.length + " recommended movies");
         res.writeHead(200, { 'Content-Type': 'text/html' })
 
-        var endMessage = "";
-        for (var i = 0; i < recommendedMoviesName.length; i++) {
-          var temp = recommendedMoviesName[i] + "<br>";
-          endMessage += temp;
-        }
+        var movie = recommendedMoviesName[0];
+        var endMessage = '<h1 id="result">' + movie + '</h1> <style> #result {text-align: center; margin-top: 15%; font-size: 300%;}</style><title> The Movie Recommender</title>';
         res.end(endMessage);
       })
     }).catch((err) => {
@@ -329,6 +326,4 @@ app.post('/', function (req, res) {
   }).catch((err) => {
     console.error(err);
   })
-  // res.writeHead(200, { 'Content-Type': 'text/html' })
-  // res.end('thanks')
 });

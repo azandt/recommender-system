@@ -35,6 +35,7 @@ function createSubmitbtn() {
         parent.appendChild(label);
 
         let input = document.createElement("input");
+        input.classList.add("ratingInput");
         input.type = "number";
         input.name = "rating";
         input.value = "";

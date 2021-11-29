@@ -1,0 +1,29 @@
+{
+  "name": "recommender-system",
+  "version": "1.0.0",
+  "description": "simple movie recommender webapp that makes use of a MySQL database made for a school project",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect": "^3.7.0",
+    "express": "^4.17.1",
+    "jquery": "^3.6.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azandt/recommender-system.git"
+  },
+  "author": "Arnon Zandt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azandt/recommender-system/issues"
+  },
+  "homepage": "https://github.com/azandt/recommender-system#readme"
+}
